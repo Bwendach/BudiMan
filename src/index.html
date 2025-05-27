@@ -530,6 +530,15 @@
             class="relative max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl shadow-electric-blue/20 animate-scale-in"
           >
             <div class="aspect-video bg-black relative">
+              <!-- Video element -->
+              <video
+                id="video-player"
+                class="absolute inset-0 w-full h-full object-cover hidden"
+                src="./assets/placeholder.mp4"
+                preload="metadata"
+              ></video>
+
+              <!-- Placeholder shown before video plays -->
               <div
                 id="video-placeholder"
                 class="absolute inset-0 flex items-center justify-center"
@@ -551,12 +560,6 @@
                     Click to play trailer
                   </p>
                 </div>
-              </div>
-
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-70"
-              >
-                <div class="absolute inset-0 bg-gray-800 opacity-70"></div>
               </div>
 
               <!-- Video controls -->
@@ -590,6 +593,7 @@
                   class="text-white hover:bg-white/20 p-2 rounded"
                 >
                   <svg
+                    id="mute-icon"
                     class="h-6 w-6"
                     fill="none"
                     stroke="currentColor"

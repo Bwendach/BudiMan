@@ -256,46 +256,138 @@ function prevBlooper() {
 }
 
 // Trailer functionality
+// let isPlaying = false;
+// let isMuted = false;
+// let progress = 0;
+// let progressInterval;
+
+// function toggleTrailer() {
+//   isPlaying = !isPlaying;
+//   const placeholder = document.getElementById("video-placeholder");
+//   const controls = document.getElementById("video-controls");
+//   const playPause = document.getElementById("play-pause");
+//   const progressBar = document.getElementById("progress-bar");
+
+//   if (isPlaying) {
+//     placeholder.classList.add("hidden");
+//     controls.classList.remove("hidden");
+//     playPause.innerHTML = `
+//             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+//                 <path d="./placeholder.mp4"/>
+//             </svg>
+//         `;
+
+//     // Simulate video progress
+//     progressInterval = setInterval(() => {
+//       progress += 1;
+//       progressBar.style.width = `${Math.min(progress, 100)}%`;
+//       if (progress >= 100) {
+//         clearInterval(progressInterval);
+//         isPlaying = false;
+//         progress = 0;
+//         toggleTrailer();
+//       }
+//     }, 100);
+//   } else {
+//     if (progressInterval) clearInterval(progressInterval);
+//     placeholder.classList.remove("hidden");
+//     controls.classList.add("hidden");
+//     progressBar.style.width = "0%";
+//     progress = 0;
+//   }
+// }
+const video = document.getElementById("video-player");
+const placeholder = document.getElementById("video-placeholder");
+const controls = document.getElementById("video-controls");
+const playPauseBtn = document.getElementById("play-pause");
+const playPauseIcon = playPauseBtn.querySelector("svg path");
+const progressBar = document.getElementById("progress-bar");
+const muteBtn = document.getElementById("mute-btn");
+const muteIcon = document.getElementById("mute-icon");
+
 let isPlaying = false;
-let isMuted = false;
-let progress = 0;
-let progressInterval;
 
-function toggleTrailer() {
-  isPlaying = !isPlaying;
-  const placeholder = document.getElementById("video-placeholder");
-  const controls = document.getElementById("video-controls");
-  const playPause = document.getElementById("play-pause");
-  const progressBar = document.getElementById("progress-bar");
-
-  if (isPlaying) {
-    placeholder.classList.add("hidden");
-    controls.classList.remove("hidden");
-    playPause.innerHTML = `
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-            </svg>
-        `;
-
-    // Simulate video progress
-    progressInterval = setInterval(() => {
-      progress += 1;
-      progressBar.style.width = `${Math.min(progress, 100)}%`;
-      if (progress >= 100) {
-        clearInterval(progressInterval);
-        isPlaying = false;
-        progress = 0;
-        toggleTrailer();
-      }
-    }, 100);
+function togglePlayPause() {
+  if (video.paused || video.ended) {
+    video.play();
   } else {
-    if (progressInterval) clearInterval(progressInterval);
-    placeholder.classList.remove("hidden");
-    controls.classList.add("hidden");
-    progressBar.style.width = "0%";
-    progress = 0;
+    video.pause();
   }
 }
+
+function updatePlayPauseIcon() {
+  if (video.paused) {
+    // Show play icon (triangle)
+    playPauseBtn.innerHTML = `
+      <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    `;
+  } else {
+    // Show pause icon (two bars)
+    playPauseBtn.innerHTML = `
+      <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+      </svg>
+    `;
+  }
+}
+
+function updateProgress() {
+  const percent = (video.currentTime / video.duration) * 100;
+  progressBar.style.width = `${percent}%`;
+}
+
+function toggleMute() {
+  video.muted = !video.muted;
+  if (video.muted) {
+    muteBtn.innerHTML = `
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" stroke-width="2" />
+      </svg>
+    `;
+  } else {
+    muteBtn.innerHTML = `
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      </svg>
+    `;
+  }
+}
+
+// When the user clicks the big play button on placeholder
+document.getElementById("play-trailer").addEventListener("click", () => {
+  placeholder.classList.add("hidden");
+  video.classList.remove("hidden");
+  controls.classList.remove("hidden");
+  video.play();
+});
+
+// Play/pause button in controls
+playPauseBtn.addEventListener("click", togglePlayPause);
+
+// Update play/pause icon on play/pause
+video.addEventListener("play", updatePlayPauseIcon);
+video.addEventListener("pause", updatePlayPauseIcon);
+
+// Update progress bar as video plays
+video.addEventListener("timeupdate", updateProgress);
+
+// When video ends, reset UI
+video.addEventListener("ended", () => {
+  placeholder.classList.remove("hidden");
+  video.classList.add("hidden");
+  controls.classList.add("hidden");
+  progressBar.style.width = "0%";
+});
+
+// Mute/unmute button
+muteBtn.addEventListener("click", toggleMute);
+
+// Initialize UI
+updatePlayPauseIcon();
 
 function toggleMute() {
   isMuted = !isMuted;
@@ -369,7 +461,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
 function goToMovie() {
-  console.log("Go to movie in youtube")
+  console.log("Go to movie in youtube");
 }
