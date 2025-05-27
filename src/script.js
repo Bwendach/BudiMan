@@ -108,7 +108,7 @@ const characters = [
     color: "text-electric-blue",
     bgColor: "bg-electric-blue",
     borderColor: "border-electric-blue",
-    image: "https://placehold.co/600x800/333/fff?text=Willsen",
+    image: "./assets/willsen.jpg",
   },
   {
     name: "Andrew",
@@ -368,3 +368,8 @@ document.addEventListener("DOMContentLoaded", () => {
       observer.observe(el);
     });
 });
+
+
+function goToMovie() {
+  console.log("Go to movie in youtube")
+}
