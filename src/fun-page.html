@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Your Powers - Budi Man</title>
+    <link href="./output.css" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "electric-blue": "#00BFFF",
+              "time-blue": "#4169E1",
+              "hero-red": "#FF0000",
+              "hero-gold": "#FFD700",
+              background: "#0a0a0a",
+              foreground: "#fafafa",
+              card: "#0a0a0a",
+              "card-foreground": "#fafafa",
+              muted: "#262626",
+              "muted-foreground": "#a3a3a3",
+              accent: "#262626",
+              "accent-foreground": "#fafafa",
+              border: "#262626",
+              input: "#262626",
+            },
+            animation: {
+              float: "float 10s ease-in-out infinite",
+              flash: "flash 1s ease-out forwards",
+              "fade-in": "fadeIn 0.5s ease-out",
+              "slide-in-left": "slideInLeft 0.5s ease-out",
+              "slide-in-right": "slideInRight 0.5s ease-out",
+              "scale-in": "scaleIn 0.5s ease-out",
+            },
+            fontFamily: {
+              superhero: ["Arial", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @keyframes float {
+        0% {
+          transform: translate(0, 0);
+        }
+        25% {
+          transform: translate(20px, -30px);
+        }
+        50% {
+          transform: translate(-10px, 20px);
+        }
+        75% {
+          transform: translate(15px, 15px);
+        }
+        100% {
+          transform: translate(0, 0);
+        }
+      }
+
+      .animate-float {
+        animation-name: float;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes flash {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        20% {
+          opacity: 0;
+        }
+        30% {
+          opacity: 0.6;
+        }
+        40% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .font-superhero {
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 800;
+      }
+
+      body {
+        background: #0a0a0a;
+        background-image: radial-gradient(
+            circle at 50% 0%,
+            rgba(0, 191, 255, 0.1),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(255, 0, 0, 0.1),
+            transparent 40%
+          );
+      }
+
+      .hidden {
+        display: none;
+      }
+      .active {
+        display: block;
+      }
+
+      .quiz-option.selected {
+        border-color: #3b82f6;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-foreground min-h-screen relative overflow-auto"
+  >
+    <!-- Navigation -->
+    <header
+      class="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md shadow-lg py-2"
+    >
+      <div class="container mx-auto px-4 flex items-center justify-between mt">
+        <a href="index.html" class="flex items-center">
+          <span class="text-2xl font-bold font-superhero text-electric-blue">
+            Budi <span class="text-hero-red">Man</span>
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center space-x-1">
+          <a
+            href="index.html"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Home</a
+          >
+          <a
+            href="index.html#about"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >About</a
+          >
+          <a
+            href="index.html#trailer"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Trailer</a
+          >
+          <a
+            href="index.html#characters"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Characters</a
+          >
+          <a
+            href="fun-page.html"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground text-electric-blue font-bold"
+            >Fun Page</a
+          >
+          <a
+            href="index.html#bloopers"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Bloopers</a
+          >
+          <a
+            href="index.html#contact"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Contact</a
+          >
+        </nav>
+
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden p-2 rounded-md hover:bg-accent"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Lightning overlay -->
+    <div
+      id="lightning-overlay"
+      class="fixed inset-0 bg-electric-blue/70 z-40 animate-flash pointer-events-none hidden"
+    ></div>
+
+    <main class="container mx-auto py-20 px-4 relative z-10 mt-16">
+      <div class="text-center mb-12 animate-fade-in">
+        <h1
+          class="text-4xl md:text-6xl font-bold font-superhero mb-4 text-electric-blue"
+        >
+          Test Your Powers
+        </h1>
+        <p class="text-xl md:text-2xl max-w-3xl mx-auto">
+          Discover if you have what it takes to be a superhero. Are you more
+          Time or Shock?
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Time Stop Power Card -->
+        <div class="animate-slide-in-left">
+          <div
+            id="time-card"
+            class="border-4 border-time-blue transition-all duration-500 h-full bg-card hover:bg-time-blue/10 rounded-lg"
+          >
+            <div class="p-6">
+              <div class="flex items-center gap-2 text-2xl font-bold mb-2">
+                <svg
+                  class="h-6 w-6 text-time-blue"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12,6 12,12 16,14"></polyline>
+                </svg>
+                Time Stop Power
+              </div>
+              <p class="text-sm text-muted-foreground mb-6">
+                Freeze everything around you for 5 seconds
+              </p>
+            </div>
+
+            <div class="p-6 pt-0 flex flex-col items-center">
+              <div
+                id="time-icon"
+                class="w-32 h-32 rounded-full flex items-center justify-center mb-6 transition-all bg-time-blue/20 text-time-blue"
+              >
+                <svg
+                  class="h-16 w-16"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12,6 12,12 16,14"></polyline>
+                </svg>
+              </div>
+              <p class="text-center mb-4">
+                Like Budiman, you can stop time with a single click. Try it out!
+              </p>
+            </div>
+
+            <div class="p-6 pt-0">
+              <button
+                id="time-stop-btn"
+                class="w-full bg-time-blue hover:bg-time-blue/80 text-white py-2 px-4 rounded-md font-medium transition-colors"
+              >
+                Stop Time
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lightning Power Card -->
+        <div class="animate-slide-in-right">
+          <div
+            id="lightning-card"
+            class="border-4 border-electric-blue transition-all duration-500 h-full bg-card hover:bg-electric-blue/10 rounded-lg"
+          >
+            <div class="p-6">
+              <div class="flex items-center gap-2 text-2xl font-bold mb-2">
+                <svg
+                  class="h-6 w-6 text-electric-blue"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  ></path>
+                </svg>
+                Lightning Power
+              </div>
+              <p class="text-sm text-muted-foreground mb-6">
+                Unleash electric energy with a powerful shock
+              </p>
+            </div>
+
+            <div class="p-6 pt-0 flex flex-col items-center">
+              <div
+                id="lightning-icon"
+                class="w-32 h-32 rounded-full flex items-center justify-center mb-6 transition-all bg-electric-blue/20 text-electric-blue"
+              >
+                <svg
+                  class="h-16 w-16"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-center mb-4">
+                Channel Willsen's electric powers and light up the screen with a
+                shock!
+              </p>
+            </div>
+
+            <div class="p-6 pt-0">
+              <button
+                id="lightning-btn"
+                class="w-full bg-electric-blue hover:bg-electric-blue/80 text-white py-2 px-4 rounded-md font-medium transition-colors"
+              >
+                Release Lightning
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Section -->
+      <div class="mt-16 max-w-3xl mx-auto animate-scale-in">
+        <div class="bg-card border border-border rounded-lg">
+          <div class="p-6">
+            <h2 class="text-2xl font-bold text-center mb-2">
+              What's Your Power Type?
+            </h2>
+            <p class="text-center text-muted-foreground mb-6">
+              Take this quick quiz to discover if you're more Time or Shock
+            </p>
+          </div>
+
+          <div class="p-6 pt-0">
+            <div class="w-full">
+              <div class="grid w-full grid-cols-3 bg-muted rounded-md p-1 mb-4">
+                <button
+                  class="quiz-tab active px-3 py-1.5 text-sm font-medium rounded-sm transition-all"
+                  data-question="1"
+                >
+                  Question 1
+                </button>
+                <button
+                  class="quiz-tab px-3 py-1.5 text-sm font-medium rounded-sm transition-all"
+                  data-question="2"
+                >
+                  Question 2
+                </button>
+                <button
+                  class="quiz-tab px-3 py-1.5 text-sm font-medium rounded-sm transition-all"
+                  data-question="3"
+                >
+                  Question 3
+                </button>
+              </div>
+
+              <div id="question-1" class="quiz-content p-4 active">
+                <h3 class="text-xl font-bold mb-4">
+                  In a crisis, you would rather:
+                </h3>
+                <div class="flex flex-col gap-3">
+                  <button
+                    class="quiz-option border border-border bg-background hover:bg-accent hover:text-accent-foreground justify-start h-auto p-4 text-left rounded-md transition-colors"
+                    data-type="time"
+                  >
+                    Have more time to think and plan your next move
+                  </button>
+                  <button
+                    class="quiz-option border border-border bg-background hover:bg-accent hover:text-accent-foreground justify-start h-auto p-4 text-left rounded-md transition-colors"
+                    data-type="shock"
+                  >
+                    Act immediately with decisive force
+                  </button>
+                </div>
+              </div>
+
+              <div id="question-2" class="quiz-content p-4 hidden">
+                <h3 class="text-xl font-bold mb-4">
+                  Your friends would describe you as:
+                </h3>
+                <div class="flex flex-col gap-3">
+                  <button
+                    class="quiz-option border border-border bg-background hover:bg-accent hover:text-accent-foreground justify-start h-auto p-4 text-left rounded-md transition-colors"
+                    data-type="time"
+                  >
+                    Patient, thoughtful, and strategic
+                  </button>
+                  <button
+                    class="quiz-option border border-border bg-background hover:bg-accent hover:text-accent-foreground justify-start h-auto p-4 text-left rounded-md transition-colors"
+                    data-type="shock"
+                  >
+                    Energetic, quick-witted, and impulsive
+                  </button>
+                </div>
+              </div>
+
+              <div id="question-3" class="quiz-content p-4 hidden">
+                <h3 class="text-xl font-bold mb-4">You prefer to:</h3>
+                <div class="flex flex-col gap-3">
+                  <button
+                    class="quiz-option border border-border bg-background hover:bg-accent hover:text-accent-foreground justify-start h-auto p-4 text-left rounded-md transition-colors"
+                    data-type="time"
+                  >
+                    Observe and analyze before making decisions
+                  </button>
+                  <button
+                    class="quiz-option border border-border bg-background hover:bg-accent hover:text-accent-foreground justify-start h-auto p-4 text-left rounded-md transition-colors"
+                    data-type="shock"
+                  >
+                    Trust your instincts and take immediate action
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 pt-0 flex justify-center">
+            <div id="quiz-result" class="text-center hidden">
+              <h3 class="text-xl font-bold mb-2">
+                Your power type is:
+                <span id="power-type-result" class="ml-2"></span>
+              </h3>
+              <p id="power-description"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 text-center">
+        <a
+          href="index.html"
+          class="inline-flex items-center px-4 py-2 border border-border bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors animate-pulse"
+        >
+          Return to Main Page
+        </a>
+      </div>
+    </main>
+
+    <!-- Floating particles -->
+    <div
+      id="floating-particles"
+      class="fixed inset-0 pointer-events-none z-0"
+    ></div>
+
+    <div
+      id="overlay-blocker"
+      class="fixed inset-0 bg-black bg-opacity-30 hidden z-50"
+    ></div>
+
+    <script src="fun-page.js"></script>
+  </body>
+</html>

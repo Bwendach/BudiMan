@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budi Man - Campus Superhero Movie</title>
+    <meta
+      name="description"
+      content="A short film about a powerless student who discovers time-stopping abilities"
+    />
+    <link href="./output.css" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "electric-blue": "#00BFFF",
+              "time-blue": "#4169E1",
+              "hero-red": "#FF0000",
+              "hero-gold": "#FFD700",
+              background: "#0a0a0a",
+              foreground: "#fafafa",
+              card: "#0a0a0a",
+              "card-foreground": "#fafafa",
+              muted: "#262626",
+              "muted-foreground": "#a3a3a3",
+              accent: "#262626",
+              "accent-foreground": "#fafafa",
+              border: "#262626",
+              input: "#262626",
+            },
+            animation: {
+              lightning: "lightning 5s infinite",
+              "lightning-delay": "lightning 7s infinite 2s",
+              "lightning-slow": "lightning 10s infinite 1s",
+              float: "float 10s ease-in-out infinite",
+              flash: "flash 1s ease-out forwards",
+              "fade-in": "fadeIn 0.5s ease-out",
+              "slide-in-left": "slideInLeft 0.5s ease-out",
+              "slide-in-right": "slideInRight 0.5s ease-out",
+              "scale-in": "scaleIn 0.5s ease-out",
+            },
+            fontFamily: {
+              superhero: ["Arial", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @keyframes lightning {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.8;
+        }
+        52% {
+          opacity: 0;
+        }
+        54% {
+          opacity: 0.6;
+        }
+        56% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translate(0, 0);
+          opacity: 0.7;
+        }
+        25% {
+          transform: translate(20px, -30px);
+          opacity: 1;
+        }
+        50% {
+          transform: translate(-15px, 25px);
+          opacity: 0.9;
+        }
+        75% {
+          transform: translate(10px, -20px);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translate(0, 0);
+          opacity: 0.7;
+        }
+      }
+
+      .animate-float {
+        animation-name: float;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes flash {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        20% {
+          opacity: 0;
+        }
+        30% {
+          opacity: 0.6;
+        }
+        40% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .font-superhero {
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 800;
+      }
+
+      body {
+        background: #0a0a0a;
+        background-image: radial-gradient(
+            circle at 50% 0%,
+            rgba(0, 191, 255, 0.1),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(255, 0, 0, 0.1),
+            transparent 40%
+          );
+      }
+
+      .scroll-indicator {
+        animation: bounce 1.5s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(12px);
+        }
+      }
+
+      .hidden {
+        display: none;
+      }
+      .active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body class="bg-background text-foreground min-h-screen">
+    <!-- Navigation -->
+    <header
+      id="navbar"
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-4"
+    >
+      <div class="container mx-auto px-4 flex items-center justify-between">
+        <a href="#hero" class="flex items-center">
+          <span class="text-2xl font-bold font-superhero text-electric-blue">
+            Budi <span class="text-hero-red">Man</span>
+          </span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-1">
+          <a
+            href="#hero"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >About</a
+          >
+          <a
+            href="#trailer"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Trailer</a
+          >
+          <a
+            href="#characters"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Characters</a
+          >
+          <a
+            href="fun-page.html"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground text-electric-blue font-bold"
+            >Fun Page</a
+          >
+          <a
+            href="#bloopers"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Bloopers</a
+          >
+          <a
+            href="#contact"
+            class="px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Contact</a
+          >
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden p-2 rounded-md hover:bg-accent"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-background/95 backdrop-blur-lg"
+      >
+        <nav class="flex flex-col gap-4 p-4">
+          <a
+            href="#hero"
+            class="px-4 py-3 text-lg font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="px-4 py-3 text-lg font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >About</a
+          >
+          <a
+            href="#trailer"
+            class="px-4 py-3 text-lg font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Trailer</a
+          >
+          <a
+            href="#characters"
+            class="px-4 py-3 text-lg font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Characters</a
+          >
+          <a
+            href="fun-page.html"
+            class="px-4 py-3 text-lg font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground text-electric-blue font-bold"
+            >Fun Page</a
+          >
+          <a
+            href="#bloopers"
+            class="px-4 py-3 text-lg font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Bloopers</a
+          >
+          <a
+            href="#contact"
+            class="px-4 py-3 text-lg font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >Contact</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main class="flex flex-col items-center">
+      <!-- Hero Section -->
+      <section
+        id="hero"
+        class="w-full relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
+        <!-- Background Effects -->
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black via-background to-background z-0"
+        ></div>
+
+        <!-- Lightning effects -->
+        <div class="absolute inset-0 z-0 opacity-30">
+          <div
+            class="absolute top-1/4 left-1/4 w-1 h-40 bg-electric-blue animate-lightning"
+          ></div>
+          <div
+            class="absolute top-1/3 right-1/3 w-1 h-60 bg-electric-blue animate-lightning-delay"
+          ></div>
+          <div
+            class="absolute bottom-1/4 left-1/2 w-1 h-20 bg-electric-blue animate-lightning-slow"
+          ></div>
+        </div>
+
+        <!-- Floating particles -->
+        <!-- <div class="absolute inset-0 z-0" id="hero-particles"></div> -->
+        <div
+          id="hero-particles"
+          class="fixed inset-0 pointer-events-none z-0"
+        ></div>
+
+        <!-- Content -->
+        <div class="container mx-auto px-4 relative z-10 text-center">
+          <div class="max-w-4xl mx-auto animate-fade-in">
+            <h1
+              class="text-4xl md:text-6xl lg:text-7xl font-bold font-superhero mb-6 leading-tight"
+            >
+              <span class="text-white">Real strength is choosing to act</span>
+              <br />
+              <span class="text-electric-blue"
+                >even when no one expects you to</span
+              >
+            </h1>
+
+            <p class="text-xl md:text-2xl mb-8 text-muted-foreground">
+              Short movie | Campus superhero story | Time stop vs electricity
+            </p>
+
+            <button
+              class="bg-hero-red hover:bg-red-600 text-white px-8 py-3 rounded-md text-lg font-medium transition-colors flex items-center mx-auto"
+            >
+              <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Watch the Movie
+            </button>
+          </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <div class="flex flex-col items-center">
+            <span class="text-sm text-muted-foreground mb-2"
+              >Scroll to explore</span
+            >
+            <div
+              class="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center"
+            >
+              <div
+                class="w-2 h-2 bg-electric-blue rounded-full mt-2 scroll-indicator"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="w-full py-20 px-4 md:px-8">
+        <div class="container mx-auto">
+          <div class="text-center mb-12 animate-fade-in">
+            <h2 class="text-3xl md:text-5xl font-bold font-superhero mb-4">
+              About the Story
+            </h2>
+            <div class="w-20 h-1 bg-hero-red mx-auto mb-6"></div>
+            <p
+              class="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground"
+            >
+              Enter a world where everyone develops superpowers at the age of 19
+              - everyone except our hero.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="space-y-6 animate-slide-in-left">
+              <p class="text-lg">
+                In a world where supernatural abilities are the norm, Budiman
+                stands out as the exception - a college student with no powers
+                in a campus full of gifted individuals.
+              </p>
+
+              <p class="text-lg">
+                When his best friend Bryan (who possesses comedic but limited
+                fart powers) is kidnapped by the electric-wielding villain
+                Willsen, Budiman must find courage beyond superpowers.
+              </p>
+
+              <p class="text-lg">
+                In a moment of crisis, Budiman discovers an unexpected ability -
+                the power to stop time. But will it be enough to save his friend
+                and confront the shocking betrayal that awaits?
+              </p>
+            </div>
+
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-slide-in-right"
+            >
+              <div
+                class="bg-black/20 border border-electric-blue hover:bg-black/30 transition-colors rounded-lg p-6 flex flex-col items-center text-center"
+              >
+                <svg
+                  class="h-12 w-12 text-electric-blue mb-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  ></path>
+                </svg>
+                <h3 class="text-xl font-bold mb-2">Electric Powers</h3>
+                <p class="text-sm text-muted-foreground">
+                  Willsen manipulates electricity to shock and control his
+                  enemies.
+                </p>
+              </div>
+
+              <div
+                class="bg-black/20 border border-time-blue hover:bg-black/30 transition-colors rounded-lg p-6 flex flex-col items-center text-center"
+              >
+                <svg
+                  class="h-12 w-12 text-time-blue mb-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12,6 12,12 16,14"></polyline>
+                </svg>
+                <h3 class="text-xl font-bold mb-2">Time Stop</h3>
+                <p class="text-sm text-muted-foreground">
+                  Budiman discovers the ability to freeze time in moments of
+                  extreme stress.
+                </p>
+              </div>
+
+              <div
+                class="bg-black/20 border border-hero-gold hover:bg-black/30 transition-colors rounded-lg p-6 flex flex-col items-center text-center sm:col-span-2"
+              >
+                <svg
+                  class="h-12 w-12 text-hero-gold mb-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-5-10v2a3 3 0 006 0V4M7 7h10"
+                  ></path>
+                </svg>
+                <h3 class="text-xl font-bold mb-2">Super Fart</h3>
+                <p class="text-sm text-muted-foreground">
+                  Bryan's comedic but surprisingly useful ability to create
+                  powerful gusts with his flatulence.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trailer Section -->
+      <section id="trailer" class="w-full py-20 px-4 md:px-8 bg-black/50">
+        <div class="container mx-auto">
+          <div class="text-center mb-12 animate-fade-in">
+            <h2 class="text-3xl md:text-5xl font-bold font-superhero mb-4">
+              Official Trailer
+            </h2>
+            <div class="w-20 h-1 bg-hero-red mx-auto mb-6"></div>
+            <p
+              class="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground"
+            >
+              Catch a glimpse of chaos, betrayal, and unexpected power.
+            </p>
+          </div>
+
+          <div
+            class="relative max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl shadow-electric-blue/20 animate-scale-in"
+          >
+            <div class="aspect-video bg-black relative">
+              <div
+                id="video-placeholder"
+                class="absolute inset-0 flex items-center justify-center"
+              >
+                <div class="text-center">
+                  <button
+                    id="play-trailer"
+                    class="w-20 h-20 rounded-full bg-hero-red/80 flex items-center justify-center mx-auto mb-4 cursor-pointer hover:bg-hero-red transition-colors"
+                  >
+                    <svg
+                      class="h-10 w-10 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </button>
+                  <p class="text-white text-lg font-medium">
+                    Click to play trailer
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-70"
+              >
+                <div class="absolute inset-0 bg-gray-800 opacity-70"></div>
+              </div>
+
+              <!-- Video controls -->
+              <div
+                id="video-controls"
+                class="absolute bottom-0 left-0 right-0 p-4 flex items-center justify-between bg-gradient-to-t from-black/80 to-transparent hidden"
+              >
+                <button
+                  id="play-pause"
+                  class="text-white hover:bg-white/20 p-2 rounded"
+                >
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </button>
+
+                <div class="flex-1 mx-4">
+                  <div
+                    class="h-1 w-full bg-white/30 rounded-full overflow-hidden"
+                  >
+                    <div
+                      id="progress-bar"
+                      class="h-full bg-hero-red rounded-full"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                </div>
+
+                <button
+                  id="mute-btn"
+                  class="text-white hover:bg-white/20 p-2 rounded"
+                >
+                  <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <polygon
+                      points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"
+                    ></polygon>
+                    <path
+                      d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center animate-fade-in">
+            <p class="text-lg max-w-2xl mx-auto">
+              "When ordinary meets extraordinary, true heroes are born.
+              <span class="text-electric-blue font-bold"> Budi Man</span> -
+              coming soon to your campus."
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Characters Section -->
+      <section id="characters" class="w-full py-20 px-4 md:px-8">
+        <div class="container mx-auto">
+          <div class="text-center mb-12 animate-fade-in">
+            <h2 class="text-3xl md:text-5xl font-bold font-superhero mb-4">
+              Meet the Characters
+            </h2>
+            <div class="w-20 h-1 bg-hero-red mx-auto mb-6"></div>
+            <p
+              class="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground"
+            >
+              Heroes, villains, and everyone in between - each with their own
+              unique powers and stories.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div
+              class="relative aspect-[3/4] bg-black/30 rounded-xl overflow-hidden animate-slide-in-left"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10"
+              ></div>
+              <img
+                id="character-image"
+                src="https://placehold.co/600x800/333/fff?text=Budiman"
+                alt="Character"
+                class="absolute inset-0 w-200 h-200 object-cover"
+              />
+
+              <div class="absolute bottom-0 left-0 right-0 p-6 z-20">
+                <div
+                  id="character-icon"
+                  class="w-12 h-12 rounded-full bg-time-blue flex items-center justify-center mb-3"
+                >
+                  <svg
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12,6 12,12 16,14"></polyline>
+                  </svg>
+                </div>
+                <h3
+                  id="character-name"
+                  class="text-3xl font-bold font-superhero mb-1"
+                >
+                  Budiman
+                </h3>
+                <p
+                  id="character-actor"
+                  class="text-lg text-muted-foreground mb-3"
+                >
+                  Played by Stankovic
+                </p>
+                <p id="character-description" class="text-white/90">
+                  The powerless protagonist who gains time-stopping abilities
+                  during a crucial moment.
+                </p>
+              </div>
+            </div>
+
+            <div class="animate-slide-in-right">
+              <div
+                class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                id="character-cards"
+              >
+                <!-- Character cards will be populated by JavaScript -->
+              </div>
+
+              <div class="mt-8 p-6 bg-black/20 rounded-xl">
+                <h3 class="text-xl font-bold mb-3">About the Cast</h3>
+                <p class="text-muted-foreground">
+                  Our talented cast brings these characters to life with passion
+                  and energy. Each actor was carefully selected to embody the
+                  unique personality and powers of their character in this
+                  campus superhero adventure.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bloopers Section -->
+      <section id="bloopers" class="w-full py-20 px-4 md:px-8 bg-black/50">
+        <div class="container mx-auto">
+          <div class="text-center mb-12 animate-fade-in">
+            <h2 class="text-3xl md:text-5xl font-bold font-superhero mb-4">
+              Bloopers & Behind the Scenes
+            </h2>
+            <div class="w-20 h-1 bg-hero-red mx-auto mb-6"></div>
+            <p
+              class="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground"
+            >
+              Even superheroes make mistakes. Check out these hilarious moments
+              from our filming.
+            </p>
+          </div>
+
+          <div class="relative max-w-4xl mx-auto animate-scale-in">
+            <div
+              class="relative aspect-video overflow-hidden rounded-xl shadow-xl shadow-electric-blue/20"
+            >
+              <div id="blooper-carousel" class="relative w-full h-full">
+                <!-- Blooper slides will be populated by JavaScript -->
+              </div>
+
+              <!-- Navigation buttons -->
+              <button
+                id="prev-blooper"
+                class="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white rounded-full p-2"
+              >
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15,18 9,12 15,6"></polyline>
+                </svg>
+              </button>
+
+              <button
+                id="next-blooper"
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white rounded-full p-2"
+              >
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="9,18 15,12 9,6"></polyline>
+                </svg>
+              </button>
+
+              <!-- Indicators -->
+              <div
+                id="blooper-indicators"
+                class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2"
+              >
+                <!-- Indicators will be populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-12 text-center animate-fade-in">
+            <p class="text-lg max-w-2xl mx-auto">
+              Want to see more behind-the-scenes content? Follow us on social
+              media for exclusive footage!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="w-full py-20 px-4 md:px-8">
+        <div class="container mx-auto">
+          <div class="text-center mb-12 animate-fade-in">
+            <h2 class="text-3xl md:text-5xl font-bold font-superhero mb-4">
+              Contact & Social
+            </h2>
+            <div class="w-20 h-1 bg-hero-red mx-auto mb-6"></div>
+            <p
+              class="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground"
+            >
+              Connect with us on social media and stay updated on our latest
+              news.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="animate-slide-in-left">
+              <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
+              <form class="space-y-4" id="contact-form">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label for="name" class="text-sm font-medium">Name</label>
+                    <input
+                      id="name"
+                      type="text"
+                      placeholder="Your name"
+                      class="w-full px-3 py-2 bg-input border border-border rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-electric-blue"
+                    />
+                  </div>
+                  <div class="space-y-2">
+                    <label for="email" class="text-sm font-medium">Email</label>
+                    <input
+                      id="email"
+                      type="email"
+                      placeholder="Your email"
+                      class="w-full px-3 py-2 bg-input border border-border rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-electric-blue"
+                    />
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <label for="subject" class="text-sm font-medium"
+                    >Subject</label
+                  >
+                  <input
+                    id="subject"
+                    type="text"
+                    placeholder="Message subject"
+                    class="w-full px-3 py-2 bg-input border border-border rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-electric-blue"
+                  />
+                </div>
+                <div class="space-y-2">
+                  <label for="message" class="text-sm font-medium"
+                    >Message</label
+                  >
+                  <textarea
+                    id="message"
+                    placeholder="Your message"
+                    rows="5"
+                    class="w-full px-3 py-2 bg-input border border-border rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-electric-blue resize-none"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="w-full bg-hero-red hover:bg-red-600 text-white py-2 px-4 rounded-md font-medium transition-colors"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+
+            <div class="animate-slide-in-right">
+              <h3 class="text-2xl font-bold mb-6">Follow Us</h3>
+              <div class="grid grid-cols-2 gap-4 mb-8">
+                <a
+                  href="#"
+                  class="flex items-center p-4 bg-black/20 rounded-lg hover:bg-black/30 transition-colors"
+                >
+                  <svg
+                    class="h-6 w-6 mr-3 text-pink-500"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.042-3.441.219-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.888-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.357-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-12C24.007 5.367 18.641.001.012.001z"
+                    />
+                  </svg>
+                  <span>Instagram</span>
+                </a>
+                <a
+                  href="#"
+                  class="flex items-center p-4 bg-black/20 rounded-lg hover:bg-black/30 transition-colors"
+                >
+                  <svg
+                    class="h-6 w-6 mr-3 text-red-500"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+                    />
+                  </svg>
+                  <span>YouTube</span>
+                </a>
+                <a
+                  href="#"
+                  class="flex items-center p-4 bg-black/20 rounded-lg hover:bg-black/30 transition-colors"
+                >
+                  <svg
+                    class="h-6 w-6 mr-3 text-blue-400"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                    />
+                  </svg>
+                  <span>Twitter</span>
+                </a>
+                <a
+                  href="#"
+                  class="flex items-center p-4 bg-black/20 rounded-lg hover:bg-black/30 transition-colors"
+                >
+                  <svg
+                    class="h-6 w-6 mr-3 text-blue-600"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                    />
+                  </svg>
+                  <span>Facebook</span>
+                </a>
+              </div>
+
+              <div class="bg-black/20 p-6 rounded-lg">
+                <h4 class="text-xl font-bold mb-4">About the Production</h4>
+                <p class="mb-4 text-muted-foreground">
+                  "Budi Man" is a short film created by talented students from
+                  Binus University as part of their final project. The film
+                  explores themes of heroism, friendship, and finding strength
+                  in unexpected places.
+                </p>
+                <p class="text-muted-foreground">
+                  Made with ❤️ by students from Binus University
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
