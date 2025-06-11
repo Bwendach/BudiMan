@@ -123,6 +123,21 @@ const characters = [
     borderColor: "border-hero-red",
     image: "../src/assets/andrew.jpg",
   },
+  {
+    name: "Ms. Narrator",
+    actor: "Alice",
+    description:
+      "The voice guiding the audience through the story. With calm wit and insight, she reveals the twists, sets the tone, and connects the dots as events unfold.",
+    icon: `<svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>`,
+    color: "text-purple-500",
+    bgColor: "bg-purple-500",
+    borderColor: "border-purple-500",
+    image: "../src/assets/placeholder.jpg",
+  },
 ];
 
 let activeCharacter = 0;
