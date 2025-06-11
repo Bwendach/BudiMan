@@ -68,7 +68,7 @@ const characters = [
     color: "text-time-blue",
     bgColor: "bg-time-blue",
     borderColor: "border-time-blue",
-    image: "https://placehold.co/600x800/333/fff?text=Budiman",
+    image: "../src/assets/kovic.jpg",
   },
   {
     name: "Bryan",
@@ -80,7 +80,7 @@ const characters = [
     color: "text-hero-gold",
     bgColor: "bg-hero-gold",
     borderColor: "border-hero-gold",
-    image: "https://placehold.co/600x800/333/fff?text=Bryan",
+    image: "../src/assets/bryan.jpg",
   },
   {
     name: "Bryan's Mom",
@@ -95,7 +95,7 @@ const characters = [
     color: "text-purple-500",
     bgColor: "bg-purple-500",
     borderColor: "border-purple-500",
-    image: "https://placehold.co/600x800/333/fff?text=Mom",
+    image: "../src/assets/brenda.jpg",
   },
   {
     name: "WW",
@@ -108,7 +108,7 @@ const characters = [
     color: "text-electric-blue",
     bgColor: "bg-electric-blue",
     borderColor: "border-electric-blue",
-    image: "./assets/willsen.jpg",
+    image: "../src/assets/willsen.jpg",
   },
   {
     name: "Andrew",
@@ -121,7 +121,7 @@ const characters = [
     color: "text-hero-red",
     bgColor: "bg-hero-red",
     borderColor: "border-hero-red",
-    image: "https://placehold.co/600x800/333/fff?text=Andrew",
+    image: "../src/assets/andrew.jpg",
   },
 ];
 
@@ -183,28 +183,8 @@ function createCharacterCards() {
 const bloopers = [
   {
     id: 1,
-    src: "https://placehold.co/1920x1080/333/fff?text=Behind+the+Scenes",
-    alt: "Behind the scenes - Time stop effect fail",
-  },
-  {
-    id: 2,
-    src: "https://placehold.co/1920x1080/333/fff?text=Electric+Outtake",
-    alt: "Outtake - Electric powers malfunction",
-  },
-  {
-    id: 3,
-    src: "https://placehold.co/1920x1080/333/fff?text=Fart+Blooper",
-    alt: "Blooper - Super fart scene gone wrong",
-  },
-  {
-    id: 4,
-    src: "https://placehold.co/1920x1080/333/fff?text=Cast+Laughing",
-    alt: "Cast laughing during serious scene",
-  },
-  {
-    id: 5,
-    src: "https://placehold.co/1920x1080/333/fff?text=Director+Poses",
-    alt: "Director explaining superhero poses",
+    src: "../src/assets/BehindTheScene1.mp4",
+    alt: "Behind the scenes - Consolidating Mom",
   },
 ];
 
@@ -219,17 +199,24 @@ function createBlooperSlides() {
 
   bloopers.forEach((blooper, index) => {
     // Create slide
-    const slide = document.createElement("div");
+    let slide = document.createElement("div");
     slide.className = `absolute inset-0 transition-all duration-500 ease-in-out ${
       index === currentBlooper ? "opacity-100 z-10" : "opacity-0 z-0"
     }`;
     slide.innerHTML = `
-            <img src="${blooper.src}" alt="${blooper.alt}" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-                <p class="text-white text-lg">${blooper.alt}</p>
-            </div>
-        `;
+  <video 
+    src="${blooper.src}" 
+    class="w-full h-full object-cover" 
+    autoplay 
+    muted 
+    loop 
+    playsinline
+  ></video>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+  <div class="absolute bottom-0 left-0 right-0 p-6">
+    <p class="text-white text-lg">${blooper.alt}</p>
+  </div>
+`;
     container.appendChild(slide);
 
     // Create indicator
@@ -462,5 +449,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function goToMovie() {
-  console.log("Go to movie in youtube");
+  const url = "https://www.youtube.com/watch?v=8tEE9ITUx8M";
+  window.open(url, "_blank");
 }
